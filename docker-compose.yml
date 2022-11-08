@@ -1,0 +1,23 @@
+version: "3"
+services:
+  login-app:
+  # prevents app exit
+    tty: true
+    container_name: login-app
+    image: latest123/login-app
+    restart: always
+    command : "dart_frog dev"
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "8080:8080"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - '27017:27017'
